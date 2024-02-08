@@ -2,8 +2,10 @@ const express = require("express");
 const User = require('./db/User')
 require('./db/config')
 const app = express();
+const cors = require('cors')
 
 app.use(express.json())
+app.use(cors())
 // const connectDB = async ()=>{
 //   mongoose.connect("mongodb://localhost:27017/e-dashboard")
 // const productSchema = new mongoose.Schema({})
