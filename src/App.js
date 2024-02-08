@@ -1,10 +1,12 @@
 import "./App.css";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
+import SignUp from './components/SignUp'
 import { HashRouter, Routes, Route } from "react-router-dom";
 function App() {
   return (
     <>
+   
       <div className="App">
         <HashRouter>
           <Nav />
@@ -14,10 +16,14 @@ function App() {
             <Route path="/update" element={<h1>Update Product Component</h1>} />
             <Route path="/logout" element={<h1>LogOut Component</h1>} />
             <Route path="/profile" element={<h1>Profile Component</h1>} />
+            <Route path="/SignUp" element={<SignUp/>} />
+         
+         
           </Routes>
         </HashRouter>
         <Footer/>
       </div>
+     
     </>
   );
 }
