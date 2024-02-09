@@ -1,4 +1,5 @@
 import "./App.css";
+import AddProduct from "./components/AddProduct";
 import Login from "./components/Login";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
@@ -14,7 +15,8 @@ function App() {
           <Routes>
             <Route element={<PrivateComp />}>
               <Route path="/" element={<h1>Product Listing Component</h1>} />
-              <Route path="/add" element={<h1>Add Product Component</h1>} />
+              <Route path="/add" element={<AddProduct/>} />
+              
               <Route
                 path="/update"
                 element={<h1>Update Product Component</h1>}
