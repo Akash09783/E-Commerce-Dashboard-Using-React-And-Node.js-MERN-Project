@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const AddProduct = () => {
   const [name, setName] = React.useState("");
@@ -7,15 +7,15 @@ const AddProduct = () => {
   const [company, setCompany] = React.useState("");
 const [error,setError]= React.useState('')
   const addProduct = async () => {
-console.warn(!name)
+console.warn(!name,!price,!category,!company)
 if(!name || !price || !category || !company){
 
 setError(true)
     return false;
 }
     console.warn(name, price, category, company);
-    const userId = JSON.stringify(localStorage.getItem("user"));
-    console.warn(userId);
+    const userId = JSON.stringify(localStorage.getItem("user"))._Id;
+
     let result = await fetch("http://localhost:5000/add-product", {
       method: "post",
       body: JSON.stringify({ name, price, category, company, userId }),
@@ -62,15 +62,14 @@ setError(true)
         placeholder="Enter Product Price"
       />
        {error && !price && <span className="sp">Enter Valid Price</span> }
-      
-      <input
+       <input
         value={category}
         onChange={(e) => {
           setCategory(e.target.value);
         }}
         type="text"
         className="inputBox"
-        placeholder="Enter Product Category"
+        placeholder="Enter Product Company"
       />
        {error && !category && <span className="sp">Enter Valid Category</span> }
       <input
