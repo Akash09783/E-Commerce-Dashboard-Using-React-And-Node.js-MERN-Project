@@ -67,4 +67,18 @@ res.send(result)
 
 })
 
+// update product
+
+app.get("/product/:id",async(req,res)=>{
+let result = await Product.findOne({_id:req.params.id})
+
+  res.send(result)
+
+
+})
+
+
+
+
+
 app.listen(5000);

@@ -1,32 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-const AddProduct = () => {
+const UpdateProduct = () => {
   const [name, setName] = React.useState("");
   const [price, setPrice] = React.useState("");
   const [category, setCategory] = React.useState("");
   const [company, setCompany] = React.useState("");
-const [error,setError]= React.useState('')
-  const addProduct = async () => {
-console.warn(!name)
-if(!name || !price || !category || !company){
+const params = useParams();
+useEffect(()=>{
+   
+  console.warn(params)
+  getProductDetails()
+})
 
-setError(true)
-    return false;
+const getProductDetails = async ()=>{
+
+    let result  = await fetch(`http://localhost:5000/product/${params._id}`);
+result = await result.json()
+setName(result.name)
+setPrice(result.price)
+setCategory(result.category)
+setCompany(result.company)
+
 }
-    console.warn(name, price, category, company);
-    const userId = JSON.stringify(localStorage.getItem("user"));
-    console.warn(userId);
-    let result = await fetch("http://localhost:5000/add-product", {
-      method: "post",
-      body: JSON.stringify({ name, price, category, company, userId }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    result = await result.json();
-    console.warn(result);
-  };
 
+  const UpdateProduct=()=>{
+    console.warn(name,price,category,company)
+  }
   return (
     <div
       className="addProduct"
@@ -34,13 +34,15 @@ setError(true)
     >
       <h1
         style={{
-          textAlign: "center",
-          marginRight: "61%",
+          
+          marginRight: "0",
           fontFamily: "sans-serif",
-          fontStyle: "italic",
+          fontStyle: 'inherit',
+          fontSize:'30px',
+          marginLeft:'12%'
         }}
       >
-        Add Product
+        Update Product
       </h1>
       <input
         value={name}
@@ -51,7 +53,6 @@ setError(true)
         className="inputBox"
         placeholder="Enter Product Name"
       />
-      {error && !name && <span className="sp">Enter Valid Name</span> }
       <input
         value={price}
         onChange={(e) => {
@@ -61,9 +62,7 @@ setError(true)
         className="inputBox"
         placeholder="Enter Product Price"
       />
-      
-       {error && !category && <span className="sp">Enter Valid Category</span> }
-      <input
+       <input
         value={category}
         onChange={(e) => {
           setCategory(e.target.value);
@@ -72,7 +71,6 @@ setError(true)
         className="inputBox"
         placeholder="Enter Product Category"
       />
-      
       <input
         value={company}
         onChange={(e) => {
@@ -82,12 +80,11 @@ setError(true)
         className="inputBox"
         placeholder="Enter Product Company"
       />
-       {error && !company && <span className="sp">Enter Valid Company</span> }
-      <button onClick={addProduct} type="button" className="appButton">
-        Add Product
+      <button onClick={UpdateProduct} type="button" className="appButton">
+        UpdateProduct
       </button>
     </div>
   );
 };
 
-export default AddProduct;
+export default UpdateProduct;

@@ -1,4 +1,5 @@
 import "./App.css";
+import UpdateProduct from "./components/UpdateProduct";
 import AddProduct from "./components/AddProduct";
 import Login from "./components/Login";
 import Nav from "./components/Nav";
@@ -7,6 +8,7 @@ import SignUp from "./components/SignUp";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateComp from "./components/PrivateComp";
 import ProductList from "./components/ProductList";
+
 
 function App() {
   return (
@@ -20,8 +22,8 @@ function App() {
               <Route path="/add" element={<AddProduct/>} />
               
               <Route
-                path="/update"
-                element={<h1>Update Product Component</h1>}
+                path="/update/:_id"
+                element={<UpdateProduct/>}
               />
               <Route path="/logout" element={<h1>LogOut Component</h1>} />
               <Route path="/profile" element={<h1>Profile Component</h1>} />
