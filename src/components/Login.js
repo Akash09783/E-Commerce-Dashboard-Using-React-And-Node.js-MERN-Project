@@ -40,7 +40,7 @@ const Login = () => {
         <h1
           style={{
             textAlign: "center",
-            marginRight: "32%",
+            marginRight: "61%",
             fontFamily: "sans-serif",
             fontStyle: "italic",
           }}

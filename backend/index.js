@@ -3,7 +3,7 @@ const User = require("./db/User");
 require("./db/config");
 const app = express();
 const cors = require("cors");
-
+const Product = require('./db/Product')
 app.use(express.json());
 app.use(cors());
 // const connectDB = async ()=>{
@@ -16,6 +16,8 @@ app.use(cors());
 // }
 // connectDB();
 
+
+//register
 app.post("/register", async (req, res) => {
   let user = new User(req.body);
   let result = await user.save();
@@ -23,7 +25,7 @@ result = result.toObject();
 delete result.password;
   res.send(result);
 });
-
+ //login 
 app.post("/login", async (req, res) => {
   console.log(req.body)
   if(req.body.password && req.body.email){
@@ -38,5 +40,16 @@ app.post("/login", async (req, res) => {
   }
 
 });
+
+//add product
+
+app.post("/add-product",async(req,res)=>{
+  let product = new Product(req.body)
+  let result = await product.save();
+  res.send(result)
+
+})
+
+
 
 app.listen(5000);

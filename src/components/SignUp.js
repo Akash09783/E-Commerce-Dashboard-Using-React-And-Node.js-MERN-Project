@@ -26,9 +26,15 @@ useEffect(()=>{
     });
     result = await result.json()
     console.warn(result)
-localStorage.setItem("user",JSON.stringify(result))
+// localStorage.setItem("user",JSON.stringify(result))
     
-navigate("/")
+// navigate("/")
+if (result.name) {
+  localStorage.setItem("user", JSON.stringify(result))
+navigate("/signup")
+} else {
+  alert("please enter correct detail");
+}
    
   };
   return (
