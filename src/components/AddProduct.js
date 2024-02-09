@@ -69,7 +69,7 @@ setError(true)
         }}
         type="text"
         className="inputBox"
-        placeholder="Enter Product Company"
+        placeholder="Enter Product Category"
       />
        {error && !category && <span className="sp">Enter Valid Category</span> }
       <input
