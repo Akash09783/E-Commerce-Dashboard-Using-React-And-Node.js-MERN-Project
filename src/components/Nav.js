@@ -36,13 +36,14 @@ const Nav = () => {
           <Link to="/profile">Profile</Link>
         </li>
      
-        <li>
-          {auth ? (
-            <Link onClick={logout} to="/signup">LogOut</Link>
-          ) : (
-            <Link to="/signup">SignUp</Link>
-          )}
-        </li>
+  
+        {
+          auth?<li>   <Link onClick={logout} to="/signup">LogOut</Link></li>:<>
+          <li>  <Link to="/signup">SignUp</Link></li>
+          <Link style={{textDecorationLine:'none',color:"white",fontSize:'17px',fontFamily:'sans-serif',textIndent:'19px'}} to="/login">Login</Link>
+          </>
+        
+        }
       </ul>
     </div>
   );

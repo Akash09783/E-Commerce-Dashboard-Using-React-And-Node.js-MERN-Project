@@ -1,4 +1,5 @@
 import "./App.css";
+import Login from "./components/Login";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import SignUp from "./components/SignUp";
@@ -12,7 +13,7 @@ function App() {
           <Nav />
           <Routes>
             <Route element={<PrivateComp />}>
-              <Route path="/login" element={<h1>Product Listing Component</h1>} />
+              <Route path="/" element={<h1>Product Listing Component</h1>} />
               <Route path="/add" element={<h1>Add Product Component</h1>} />
               <Route
                 path="/update"
@@ -23,7 +24,9 @@ function App() {
               <Route />
             </Route>
 
+           
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </BrowserRouter>
         <Footer />
