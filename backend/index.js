@@ -80,4 +80,25 @@ app.put("/productt/:id", async (req, res) => {
   res.send(result);
 });
 
+
+//search
+
+app.get("/search/:key",async(req,res)=>{
+  let result = await Product.find({
+    "$or":[
+      {name:{$regex:req.params.key}},
+      {company:{$regex:req.params.key}},
+      {category:{$regex:req.params.key}}
+    ]
+  })
+  res.send(result)
+
+})
+
+
+
+
+
+
+
 app.listen(5000);

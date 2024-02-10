@@ -92,3 +92,11 @@
 .product-list ul{
   margin: 0;
 }
+.search{
+  
+  width: 400px;
+  margin: 15px;
+  height: 25px;
+  border: 2px solid skyblue;
+  padding-left:20px ;
+}
