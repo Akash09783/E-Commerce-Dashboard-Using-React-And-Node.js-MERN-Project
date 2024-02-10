@@ -24,19 +24,17 @@ useEffect(()=>{
   'content-Type':'application/json'
  },
     });
-    result = await result.json()
-    console.warn(result)
-// localStorage.setItem("user",JSON.stringify(result))
-    
-// navigate("/")
-if (result.name) {
-  localStorage.setItem("user", JSON.stringify(result))
-navigate("/signup")
-} else {
-  alert("please enter correct detail");
-}
-   
-  };
+    result = await result.json();
+    console.warn(result);
+    if (result.auth) {
+      localStorage.setItem("user", JSON.stringify(result.result))
+      localStorage.setItem("token", JSON.stringify(result.auth))
+   navigate("/")
+    } else {
+      alert("please enter correct detail");
+    }
+  }
+
   return (
     <div className="container">
       <h1 style={{ textAlign: "center" }}>Register</h1>

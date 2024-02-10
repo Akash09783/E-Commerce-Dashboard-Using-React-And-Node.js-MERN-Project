@@ -4,8 +4,12 @@ require("./db/config");
 const app = express();
 const cors = require("cors");
 const Product = require("./db/Product");
+const Jwt = require('jsonwebtoken')
+const jwtKey = 'e-dashboard'
+
 app.use(express.json());
 app.use(cors());
+
 // const connectDB = async ()=>{
 //   mongoose.connect("mongodb://localhost:27017/e-dashboard")
 // const productSchema = new mongoose.Schema({})
@@ -22,7 +26,14 @@ app.post("/register", async (req, res) => {
   let result = await user.save();
   result = result.toObject();
   delete result.password;
-  res.send(result);
+  Jwt.sign({result},jwtKey,{expiresIn:"2h"},(err,token)=>{
+    if(err){
+      res.send({result:'something Went Wrong, PLease Try after Sometime'})
+    }
+    res.send({result,auth:token});
+
+  })
+
 });
 //login
 app.post("/login", async (req, res) => {
@@ -30,7 +41,14 @@ app.post("/login", async (req, res) => {
   if (req.body.password && req.body.email) {
     let user = await User.findOne(req.body).select("-password");
     if (user) {
-      res.send(user);
+      Jwt.sign({user},jwtKey,{expiresIn:"2h"},(err,token)=>{
+        if(err){
+          res.send({result:'something Went Wrong, PLease Try after Sometime'})
+        }
+        res.send({user,auth:token});
+
+      })
+    
     } else {
       res.send({ result: "no user found" });
     }
@@ -83,7 +101,7 @@ app.put("/productt/:id", async (req, res) => {
 
 //search
 
-app.get("/search/:key",async(req,res)=>{
+app.get("/search/:key",verifyToken,async(req,res)=>{
   let result = await Product.find({
     "$or":[
       {name:{$regex:req.params.key}},
@@ -94,6 +112,26 @@ app.get("/search/:key",async(req,res)=>{
   res.send(result)
 
 })
+
+function verifyToken(req,res,next){
+let token = req.headers['authorization'];
+if(token){
+  token = token.split(' ');
+console.log("middleware called",token)
+Jwt.verify(token,jwtKey,(err,valid)=>{
+  if(err){
+    res.status(401).send({result:"please provide valid token"})
+  }else{
+next();
+  }
+
+})
+} else { 
+res.status(403).send({result:"please add token with header"})
+}
+
+
+}
 
 
 
